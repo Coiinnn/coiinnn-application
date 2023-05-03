@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import { s } from 'abitype/dist/abi-78346466';
 import { useContractEvent, useContractReads } from 'wagmi';
 
 import { CONTRACT_ADDRESS_MANTLE, contractAbi } from '@/contract';
@@ -7,7 +6,10 @@ import { fromHex, generateKey } from '@/utils';
 
 import styles from './styles.module.scss';
 
+let nextId = 0;
+
 type GameEventType = {
+  id: number;
   owner: string;
   amount: number;
   result: 'win' | 'lose';
@@ -17,7 +19,7 @@ export const EventsData = () => {
   const [gameEvents, setGameEvents] = useState<Array<GameEventType>>([]);
 
   const addGameEvent = (event: GameEventType) => {
-    setGameEvents((previousState) => [...previousState, event]);
+    setGameEvents((previousState) => [event, ...previousState]);
   };
 
   useContractEvent({
@@ -27,6 +29,7 @@ export const EventsData = () => {
     listener(node, label, q) {
       console.log({ node, label, q, result: 'win' });
       addGameEvent({
+        id: ++nextId,
         owner: node,
         amount: fromHex(label._hex) / Math.pow(10, 18),
         result: 'win',
@@ -40,6 +43,7 @@ export const EventsData = () => {
     listener(node, label, q) {
       console.log({ node, label, q, result: 'lose' });
       addGameEvent({
+        id: ++nextId,
         owner: node,
         amount: fromHex(label._hex) / Math.pow(10, 18),
         result: 'lose',
@@ -50,13 +54,22 @@ export const EventsData = () => {
   return (
     <div className={styles.wrapper}>
       <p className={styles.label}>Games:</p>
-      {gameEvents.map((event) => (
-        <div className={styles.card} key={generateKey(event.owner)}>
-          <div>Owner: {event.owner}</div>
-          <div>Amount: {event.amount}</div>
-          <div>Result: {event.result}</div>
-        </div>
-      ))}
+      {gameEvents.map((event) => {
+        return (
+          <div
+            className={`${styles.card} ${
+              event.result === 'win' ? styles.win : styles.lose
+            }`}
+            key={event.id}
+          >
+            <div>Owner: {event.owner}</div>
+            <span>
+              {event.result === 'win' ? `+ ` : '-'}
+              {event.amount}&nbsp;BIT
+            </span>
+          </div>
+        );
+      })}
     </div>
   );
 };

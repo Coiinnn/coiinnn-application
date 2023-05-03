@@ -1,3 +1,9 @@
+$red: #FF5733;
+$green: #5FBA7D;
+$red-shadow: rgba(255, 87, 51, 0.4);
+$green-shadow: rgba(95, 186, 125, 0.4);
+
+
 .wrapper {
   display: flex;
   flex-direction: column;
@@ -6,6 +12,38 @@
   width: 100%;
   gap: 2rem;
   padding: 2rem;
+  height: 600px;
+  overflow: auto;
+
+  /* Ширина скроллбара */
+  &::-webkit-scrollbar {
+    width: 8px;
+  }
+
+  /* Цвет и фон скроллбара */
+  &::-webkit-scrollbar-track {
+    background-color: transparent;
+    border: 2px solid var(--main-color);
+    border-radius: 10px;
+  }
+
+  /* Цвет ползунка скроллбара */
+  &::-webkit-scrollbar-thumb {
+    background-color: var(--main-color);
+    border-radius: 10px;
+    border: 2px solid #F5F5F5;
+  }
+
+  /* Активный ползунок скроллбара */
+  &::-webkit-scrollbar-thumb:hover {
+    background-color: var(--main-color);
+  }
+
+  /* Кнопка прокрутки скроллбара */
+  &::-webkit-scrollbar-button {
+    display: none;
+  }
+
 }
 
 .label {
@@ -16,10 +54,47 @@
 }
 
 .card {
+  background: rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(5px);
+  color: var(--main-color);
   padding: 1rem;
   width: 100%;
   border-radius: var(--border-radius);
-  background: var(--main-color);
+  border: 2px solid var(--main-color);
   display: flex;
   flex-direction: column;
+  opacity: 0;
+  animation: appear 0.5s forwards;
+  gap: 1rem;
+
+  span {
+    align-self: flex-end;
+    width: fit-content;
+    padding: 6px 1rem;
+    border-radius: var(--border-radius);
+  }
+
+}
+
+.win {
+  box-shadow: 0 4px 30px $green-shadow;
+
+  span {
+    background-color: $green;
+  }
+
+}
+
+.lose {
+  box-shadow: 0 4px 30px $red-shadow;
+
+  span {
+    background-color: $red;
+  }
+}
+
+
+@keyframes appear {
+  to {opacity: 1}
 }
