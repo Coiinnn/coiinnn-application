@@ -1,5 +1,51 @@
 [
   {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "newCoiinnnStorage",
+        "type": "address"
+      }
+    ],
+    "name": "changeCoiinnnStorage",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "newOwner",
+        "type": "address"
+      }
+    ],
+    "name": "changeOwner",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint16",
+        "name": "newWinPercent",
+        "type": "uint16"
+      }
+    ],
+    "name": "changeWinPercent",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "play",
+    "outputs": [],
+    "stateMutability": "payable",
+    "type": "function"
+  },
+  {
     "inputs": [],
     "stateMutability": "nonpayable",
     "type": "constructor"
@@ -90,6 +136,32 @@
     "anonymous": false,
     "inputs": [
       {
+        "indexed": true,
+        "internalType": "address",
+        "name": "oldStorage",
+        "type": "address"
+      },
+      {
+        "indexed": true,
+        "internalType": "address",
+        "name": "newStorage",
+        "type": "address"
+      }
+    ],
+    "name": "StorageSet",
+    "type": "event"
+  },
+  {
+    "inputs": [],
+    "name": "topUpBalance",
+    "outputs": [],
+    "stateMutability": "payable",
+    "type": "function"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
         "indexed": false,
         "internalType": "address",
         "name": "player",
@@ -131,29 +203,16 @@
     "type": "event"
   },
   {
-    "inputs": [
+    "inputs": [],
+    "name": "getCoiinnnStorage",
+    "outputs": [
       {
         "internalType": "address",
-        "name": "newOwner",
+        "name": "",
         "type": "address"
       }
     ],
-    "name": "changeOwner",
-    "outputs": [],
-    "stateMutability": "nonpayable",
-    "type": "function"
-  },
-  {
-    "inputs": [
-      {
-        "internalType": "uint16",
-        "name": "newWinPercent",
-        "type": "uint16"
-      }
-    ],
-    "name": "changeWinPercent",
-    "outputs": [],
-    "stateMutability": "nonpayable",
+    "stateMutability": "view",
     "type": "function"
   },
   {
@@ -180,20 +239,6 @@
       }
     ],
     "stateMutability": "view",
-    "type": "function"
-  },
-  {
-    "inputs": [],
-    "name": "play",
-    "outputs": [],
-    "stateMutability": "payable",
-    "type": "function"
-  },
-  {
-    "inputs": [],
-    "name": "topUpBalance",
-    "outputs": [],
-    "stateMutability": "payable",
     "type": "function"
   }
 ]

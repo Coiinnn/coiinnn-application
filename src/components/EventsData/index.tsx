@@ -64,8 +64,10 @@ export const EventsData = () => {
           >
             <div>Owner: {event.owner}</div>
             <span>
-              {event.result === 'win' ? `+ ` : '-'}
-              {event.amount}&nbsp;BIT
+              {event.result === 'win'
+                ? `+ ${(event.amount * 0.95).toFixed(2)}`
+                : `- ${event.amount.toFixed(2)}`}
+              &nbsp;BIT
             </span>
           </div>
         );

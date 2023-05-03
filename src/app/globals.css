@@ -82,6 +82,26 @@ body {
   overflow-x: hidden;
 }
 
+::-webkit-scrollbar {
+  width: 8px;
+  background: rgba(0, 0, 0, 0.9);
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: var(--main-color);
+  border-radius: 10px;
+  border: 2px solid #F5F5F5;
+}
+
+::-webkit-scrollbar-button {
+  display: none;
+}
+
 body {
   /*color: rgb(var(--foreground-rgb));*/
   /*background: linear-gradient(*/
@@ -98,6 +118,8 @@ body {
   /*-webkit-filter: var(--tw-blur);*/
   backdrop-filter: var(--tw-blur);
 }
+
+
 
 a {
   color: inherit;
