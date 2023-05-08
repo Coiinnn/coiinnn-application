@@ -1,5 +1,10 @@
-import React from 'react';
+import React, { Suspense } from 'react';
 import localFont from 'next/font/local';
+
+import Loading from '@/app/loading';
+import styles from '@/app/page.module.css';
+import Footer from '@/components/Footer';
+import Header from '@/components/Header';
 
 import './globals.css';
 
@@ -23,9 +28,17 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={bruno.className}>
-        <QueryProvider>
-          <Web3Provider>{children}</Web3Provider>
-        </QueryProvider>
+        <Suspense fallback={<Loading />}>
+          <QueryProvider>
+            <Web3Provider>
+              <div className={styles.wrapper}>
+                <Header />
+                {children}
+                <Footer />
+              </div>
+            </Web3Provider>
+          </QueryProvider>
+        </Suspense>
       </body>
     </html>
   );

@@ -1,0 +1,44 @@
+.wrapper {
+  width: fit-content;
+  position: relative;
+}
+
+.address {
+  color: var(--main-color);
+  cursor: pointer;
+  border: 2px solid transparent;
+  padding: 8px 16px;
+  border-radius: var(--border-radius);
+  transition: 0.3s ease;
+
+  &:hover {
+    border: 2px solid var(--main-color);
+  }
+}
+
+.drop_box {
+  left: 50%;
+  top: 150%;
+  transform: translate(-50%, 0);
+  position: absolute;
+  width: max-content;
+  height: auto;
+  padding: 20px;
+  border: 2px solid var(--main-color);
+  background: rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(5px);
+  border-radius: var(--border-radius);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+}
+
+.link {
+  color: var(--main-color);
+  text-decoration: underline;
+  font-weight: 400;
+  font-size: 14px;
+}

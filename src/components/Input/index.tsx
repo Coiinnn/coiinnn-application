@@ -2,6 +2,7 @@ import React, { FC } from 'react';
 import {
   Control,
   FieldPath,
+  FieldValue,
   FieldValues,
   RegisterOptions,
   useController,
@@ -18,7 +19,7 @@ type TInput<
   label: string;
   disabled?: boolean;
   type?: 'text' | 'number' | 'email' | 'tel' | 'date';
-  control?: Control<TFieldValues>;
+  control?: Control<FieldValue<TFieldValues>>;
   rules?: Omit<
     RegisterOptions<TFieldValues, TName>,
     'valueAsNumber' | 'valueAsDate' | 'setValueAs' | 'disabled'

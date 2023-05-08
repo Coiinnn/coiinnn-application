@@ -1,6 +1,6 @@
 'use client';
-
 import React, { FC, PropsWithChildren } from 'react';
+import toast, { Toaster } from 'react-hot-toast';
 import { QueryCache, QueryClient, QueryClientProvider } from 'react-query';
 
 const queryClient = new QueryClient({
@@ -10,13 +10,18 @@ const queryClient = new QueryClient({
     },
   },
   queryCache: new QueryCache({
-    onError: (error) => console.log(error),
+    onError: (error) => {
+      toast.error('error');
+    },
   }),
 });
 
 const QueryProvider: FC<PropsWithChildren> = ({ children }) => {
   return (
-    <QueryClientProvider client={queryClient}>{children}</QueryClientProvider>
+    <>
+      <QueryClientProvider client={queryClient}>{children}</QueryClientProvider>
+      <Toaster />
+    </>
   );
 };
 

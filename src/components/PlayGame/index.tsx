@@ -1,9 +1,10 @@
+'use client';
+
 import React, { useCallback } from 'react';
 import { useForm } from 'react-hook-form';
 
-import { Button, Input } from '@/components';
-
 type TFieldValue = { value: number };
+import toast from 'react-hot-toast';
 import {
   prepareWriteContract,
   waitForTransaction,
@@ -11,12 +12,14 @@ import {
 } from '@wagmi/core';
 import { ethers } from 'ethers';
 
+import { Button } from '@/components/Button';
+import { Input } from '@/components/Input';
 import { CONTRACT_ADDRESS_MANTLE, contractAbi } from '@/contract';
 import { decodeData, validateInputValue } from '@/utils';
 
 import styles from './styles.module.scss';
 
-export const PlayGame = () => {
+const PlayGame = () => {
   const {
     handleSubmit,
     control,
@@ -37,21 +40,35 @@ export const PlayGame = () => {
 
   const onSubmit = useCallback(
     async (data: TFieldValue) => {
-      const config = await prepareWriteContract({
-        address: CONTRACT_ADDRESS_MANTLE,
-        abi: contractAbi,
-        functionName: 'play',
-        args: [],
-        overrides: {
-          value: ethers.utils.parseEther(String(data.value)),
-        },
-      });
-      const dataPlay = await writeContract(config);
-      const dataWait = await waitForTransaction({
-        hash: dataPlay.hash,
-      });
-      console.log(dataWait);
-      for (const l of dataWait.logs) console.log(decodeData(l.data));
+      try {
+        const config = await prepareWriteContract({
+          address: CONTRACT_ADDRESS_MANTLE,
+          abi: contractAbi,
+          functionName: 'play',
+          args: [],
+          overrides: {
+            value: ethers.utils.parseEther(String(data.value)),
+          },
+        });
+        const dataPlay = await writeContract(config);
+        const dataWait = await waitForTransaction({
+          hash: dataPlay.hash,
+        });
+        if (dataWait.transactionHash) {
+          toast.success(
+            <a
+              href={`https://explorer.testnet.mantle.xyz/tx/${dataWait.transactionHash}`}
+              target={'_blank'}
+              rel="noreferrer"
+              style={{ textDecoration: 'underline' }}
+            >
+              Check transaction
+            </a>,
+          );
+        }
+      } catch (error: any) {
+        toast.error(error.message || 'error');
+      }
     },
     [clearErrors, setError],
   );
@@ -63,7 +80,7 @@ export const PlayGame = () => {
           control={control}
           type={'number'}
           disabled={false}
-          placeholder={'10'}
+          placeholder={'Ex: 10'}
           rules={{
             required: 'Should be between 0 and 10',
             validate: validateInputValue,
@@ -78,3 +95,5 @@ export const PlayGame = () => {
     </div>
   );
 };
+
+export default PlayGame;

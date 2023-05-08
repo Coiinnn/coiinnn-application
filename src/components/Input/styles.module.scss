@@ -23,7 +23,7 @@ $error-color: #ff4444;
   outline: none;
 
   &::placeholder {
-    color: $dark-bg;
+    color: $light-bg;
   }
 
   &:hover {
@@ -51,5 +51,5 @@ $error-color: #ff4444;
   color: $error-color;
   font-size: 12px;
   margin-top: 5px;
-  height: 12px;
+  height: 24px;
 }
